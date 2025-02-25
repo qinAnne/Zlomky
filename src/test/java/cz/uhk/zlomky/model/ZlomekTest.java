@@ -1,6 +1,7 @@
 package cz.uhk.zlomky.model;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 class ZlomekTest {
 
@@ -14,7 +15,7 @@ class ZlomekTest {
     }
     @Test
     void kratNulovy() {
-        Zlomek a = new Zlomek(3,4);
+        Zlomek a = new Zlomek(0,4);
         Zlomek b = new Zlomek(4,5);
         Zlomek c = a.krat(b);
         assertEquals(0, c.getCitatel(), "Chybny citatel");
@@ -22,17 +23,36 @@ class ZlomekTest {
     }
     @Test
     void deleno() {
+        Zlomek a = new Zlomek(3,4);
+        Zlomek b = new Zlomek(4,5);
+        Zlomek c = a.deleno(b);
+        assertEquals(15, c.getCitatel(), "Chybny citatel");
+        assertEquals(16, c.getJmenovatel(), "Chybny jmenovatel");
     }
 
     @Test
     void plus() {
+        Zlomek a = new Zlomek(3,4);
+        Zlomek b = new Zlomek(4,5);
+        Zlomek c = a.plus(b);
+        assertEquals(31, c.getCitatel(), "Chybny citatel");
+        assertEquals(20, c.getJmenovatel(), "Chybny jmenovatel");
     }
 
     @Test
     void minus() {
+        Zlomek a = new Zlomek(3,4);
+        Zlomek b = new Zlomek(4,5);
+        Zlomek c = a.minus(b);
+        assertEquals(-1, c.getCitatel(), "Chybny citatel");
+        assertEquals(20, c.getJmenovatel(), "Chybny jmenovatel");
     }
 
     @Test
     void zkratit() {
+        Zlomek a = new Zlomek(15,20);
+        Zlomek b = a.zkratit();
+        assertEquals(3, b.getCitatel(), "Chybny citatel");
+        assertEquals(4, b.getJmenovatel(), "Chybny jmenovatel");
     }
 }

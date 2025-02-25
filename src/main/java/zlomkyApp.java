@@ -3,14 +3,16 @@ import cz.uhk.zlomky.model.Zlomek;
 import java.util.Arrays;
 
 public class zlomkyApp {
+
     public static void main(String[] args) {
         System.out.println("ZlomkoAplikace");
 
         //vytvoření instance(=objektu) tridy Zlomek
         Zlomek a = new Zlomek(3,4);
-        System.out.printf("Zlomek a =%s\n", a.toString());
+        System.out.printf("Zlomek a = %s\n", a);
 
         Zlomek b = new Zlomek(2,5);
+
         Zlomek c = a.krat(b);
         System.out.printf("Zlomek a*b = %s\n", c.zkratit());
         System.out.printf("Zlomek a/b = %s\n", a.deleno(b).zkratit());
@@ -28,6 +30,7 @@ public class zlomkyApp {
             System.out.printf("Soucet je %s\n", all);
         } catch (ArithmeticException e) {
             System.out.println("Chyba při výpočtu sumy zlomků: "+e.getMessage());
+            e.printStackTrace();
         }
         Number[] pole2 = new Number[8];
         for (int i = 0; i < poleZlomku.length; i++) {
@@ -39,9 +42,10 @@ public class zlomkyApp {
         pole2 [7] = 40;
         double suma = 0;
         for(Number n : pole2) {
-            System.out.printf("%s\n", suma);
+            System.out.printf("%s\n", n);
             suma += n.doubleValue();
         }
+        System.out.printf("Soucet je %s/n", suma);
     }
 
     public static Zlomek sumaZlomku(Zlomek[] pole) {
@@ -49,6 +53,6 @@ public class zlomkyApp {
         for (Zlomek z : pole) {
             soucet = soucet.plus(z); //soucet += z;
         }
-        return soucet;
+        return soucet.zkratit();
     }
 }
