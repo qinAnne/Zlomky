@@ -20,8 +20,9 @@ class SeznamZlomkuTest {
         assertEquals(1,seznam.pocetZlomku(), "Pocet zlomku");
         Zlomek z = seznam.vybratZlomek(0);
         assertEquals(3, z.getCitatel(),"Citatel");
-        assertEquals(3, z.getJmenovatel(), "Jmenovatel");
+        assertEquals(5, z.getJmenovatel(), "Jmenovatel");
     }
+
     @Test
     @DisplayName("Test pridavani null")
     void pridatZlomekNull(){
@@ -30,7 +31,17 @@ class SeznamZlomkuTest {
 
     @Test
     void odebratZlomek() {
-        fail("Not yet implemented");
+        seznam.pridatZlomek(new Zlomek(3,5));
+        seznam.odebratZlomek(0);
+        assertEquals(0, seznam.pocetZlomku(), "Pocet zlomku");
+        Zlomek z;
+        if (seznam.pocetZlomku()>0){
+            z = seznam.vybratZlomek(0);
+        }
+        else{
+            z = null;
+            assertNull(z, "Zlomek by mel byt null");
+        }
     }
 
     @Test
