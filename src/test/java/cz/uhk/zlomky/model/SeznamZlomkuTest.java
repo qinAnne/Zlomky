@@ -65,7 +65,8 @@ class SeznamZlomkuTest {
     void vybratZlomek() {
         seznam.pridatZlomek(new Zlomek(3,5));
         Zlomek z = seznam.vybratZlomek(0);
-
+        assertEquals(3, z.getCitatel(), "Citatel");
+        assertEquals(5, z.getJmenovatel(), "Jmenovatel");
     }
 
     @Test
