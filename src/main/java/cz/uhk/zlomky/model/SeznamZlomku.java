@@ -15,7 +15,11 @@ public class SeznamZlomku {
             throw new NullPointerException("Zlomek null");
         }
     }
-    public void odebratZlomek(int index) {
+    public void odebratZlomek(int index) throws IndexOutOfBoundsException {
+        if(zlomky.isEmpty() && index == 0)
+        {
+            return;
+        }
         zlomky.remove(index);
     }
     public Zlomek vybratZlomek(int index) throws IndexOutOfBoundsException {
@@ -27,15 +31,29 @@ public class SeznamZlomku {
         }
     }
     public Zlomek spoctiSoucet() {
+        if (zlomky.isEmpty()) {
+            return new Zlomek(0, 1); // Vrátíme 0/1 místo 0/0
+        }
         Zlomek suma = new Zlomek(0,1);
+
         for (Zlomek z : zlomky) {
             suma = suma.plus(z);
         }
+
+        // Ochrana proti 0/0
+        if (suma.getCitatel() == 0) {
+            return new Zlomek(0, 1);
+        }
+
         return suma.zkratit();
     }
     public Zlomek spoctiPrumer(){
         Zlomek suma = spoctiSoucet();
         Zlomek pocet = new Zlomek(zlomky.size(),1);
+
+        if (suma.getCitatel() == 0) {
+            return new Zlomek(0, 1);
+        }
         return suma.deleno(pocet).zkratit(); //suma/pocet
     }
     public int pocetZlomku(){

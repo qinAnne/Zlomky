@@ -30,18 +30,35 @@ class SeznamZlomkuTest {
     }
 
     @Test
-    void odebratZlomek() {
-        seznam.pridatZlomek(new Zlomek(3,5));
+    @DisplayName("Test odebirani z prazdneho seznamu")
+    void odebratZlomekPrazdnySeznam() {
         seznam.odebratZlomek(0);
         assertEquals(0, seznam.pocetZlomku(), "Pocet zlomku");
-        Zlomek z;
-        if (seznam.pocetZlomku()>0){
-            z = seznam.vybratZlomek(0);
-        }
-        else{
-            z = null;
-            assertNull(z, "Zlomek by mel byt null");
-        }
+        assertThrows(IndexOutOfBoundsException.class, () -> seznam.vybratZlomek(0));
+    }
+
+    @Test
+    @DisplayName("Test odebirani - posledni prvek")
+    void odebratZlomekPosledni() {
+        seznam.pridatZlomek(new Zlomek(3,5));
+        seznam.pridatZlomek(new Zlomek(3,4));
+        seznam.pridatZlomek(new Zlomek(3,6));
+        seznam.odebratZlomek(2);
+        assertEquals(2, seznam.pocetZlomku(), "Pocet zlomku");
+        assertThrows(IndexOutOfBoundsException.class, () -> seznam.vybratZlomek(2));
+    }
+
+    @Test
+    @DisplayName("Test odebirani - prvni prvek")
+    void odebratZlomekPrvni() {
+        seznam.pridatZlomek(new Zlomek(3,5));
+        seznam.pridatZlomek(new Zlomek(3,4));
+        seznam.pridatZlomek(new Zlomek(3,6));
+        seznam.odebratZlomek(0);
+        assertEquals(2, seznam.pocetZlomku(), "Pocet zlomku");
+        Zlomek prvni = seznam.vybratZlomek(0);
+        assertEquals(3, prvni.getCitatel(), "Čitatel prvního zlomku");
+        assertEquals(4, prvni.getJmenovatel(), "Jmenovatel prvního zlomku");
     }
 
     @Test
@@ -62,12 +79,59 @@ class SeznamZlomkuTest {
     }
 
     @Test
+    @DisplayName("Test scitani")
     void spoctiSoucet() {
-        fail("Not yet implemented");
+        seznam.pridatZlomek(new Zlomek(2,5));
+        seznam.pridatZlomek(new Zlomek(1,3));
+        Zlomek soucet = seznam.spoctiSoucet();
+        assertEquals(11, soucet.getCitatel(), "Citatel");
+        assertEquals(15, soucet.getJmenovatel(), "Jmenovatel");
     }
 
     @Test
+    @DisplayName("Test scitani - prazdny seznam")
+    void spoctiSoucetPrazdnySeznam() {
+        Zlomek soucet = seznam.spoctiSoucet();
+        assertEquals(0, soucet.getCitatel(), "Citatel");
+        assertEquals(1, soucet.getJmenovatel(), "Jmenovatel");
+    }
+
+    @Test
+    @DisplayName("Test scitani - nulový seznam")
+    void spoctiSoucetNulovySeznam() {
+        seznam.pridatZlomek(new Zlomek(0,5));
+        seznam.pridatZlomek(new Zlomek(0,6));
+        seznam.pridatZlomek(new Zlomek(0,4));
+        Zlomek soucet = seznam.spoctiSoucet();
+        assertEquals(0, soucet.getCitatel(), "Citatel");
+        assertEquals(1, soucet.getJmenovatel(), "Jmenovatel");
+    }
+
+    @Test
+    @DisplayName("Test vypoctu prumeru")
     void spoctiPrumer() {
-        fail("Not yet implemented");
+        seznam.pridatZlomek(new Zlomek(2,5));
+        seznam.pridatZlomek(new Zlomek(1,3));
+        Zlomek soucet = seznam.spoctiPrumer();
+        assertEquals(11, soucet.getCitatel(), "Citatel");
+        assertEquals(30, soucet.getJmenovatel(), "Jmenovatel");
+    }
+
+    @Test
+    @DisplayName("Test vypoctu prumeru - prazdneho seznamu")
+    void spoctiPrumerPrazdnySeznam() {
+        Zlomek soucet = seznam.spoctiPrumer();
+        assertEquals(0, soucet.getCitatel(), "Citatel");
+        assertEquals(1, soucet.getJmenovatel(), "Jmenovatel");
+    }
+
+    @Test
+    @DisplayName("Test vypoctu prumeru - nuloveho seznamu")
+    void spoctiPrumerNulovySeznam() {
+        seznam.pridatZlomek(new Zlomek(0,5));
+        seznam.pridatZlomek(new Zlomek(0,3));
+        Zlomek soucet = seznam.spoctiPrumer();
+        assertEquals(0, soucet.getCitatel(), "Citatel");
+        assertEquals(1, soucet.getJmenovatel(), "Jmenovatel");
     }
 }
